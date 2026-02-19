@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C to Flowchart Generator</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>C to Flowchart Generator</h1>
+      <p class="Text">Visualize your logic instantly.</p>
+    </header>
+
+    <div class="controls">
+      <div class="examples">
+        <span>Load Examples:</span>
+        <button onclick="loadExample('armstrong')">Armstrong Number</button>
+        <button onclick="loadExample('multiplication')">Multiplication Table</button>
+        <button onclick="loadExample('comparison')">Compare 3 Numbers</button>
+      </div>
+      <div class="actions">
+        <button onclick="generateFlowchart()" class="primary-btn">Generate Flowchart</button>
+        <button onclick="exportPNG()" class="secondary-btn">Export PNG</button>
+      </div>
+    </div>
+
+    <div class="workspace">
+      <div class="editor-pane">
+        <textarea id="codeInput" placeholder="// Paste your C code here...
+#include <stdio.h>
+
+int main() {
+    int a = 10;
+    printf('%d', a);
+    return 0;
+}"></textarea>
+      </div>
+      <div class="preview-pane">
+        <div id="flowchart-container">
+          <svg id="flowchart"></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.3.0/mermaid.min.js"></script>
+  
+  <script>
+    if (typeof mermaid === 'undefined') {
+      document.write('<script src="https://unpkg.com/mermaid@9.3.0/dist/mermaid.min.js"><\/script>');
+    }
+  </script>
+  <!-- Fallback to JsDelivr -->
+  <script>
+    if (typeof mermaid === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js"><\/script>');
+    }
+  </script>
+
+  <script>
+    window.addEventListener('load', function () {
+      const statusDiv = document.createElement('div');
+      Object.assign(statusDiv.style, {
+        position: 'fixed', bottom: '10px', right: '10px',
+        padding: '8px 12px', borderRadius: '6px', fontSize: '13px',
+        fontWeight: '600', boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+        zIndex: '1000'
+      });
+
+      if (typeof mermaid !== 'undefined') {
+        mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
+        statusDiv.style.background = '#dcfce7';
+        statusDiv.style.color = '#166534';
+        statusDiv.innerHTML = '● System Online (High Quality Mode)';
+      } else {
+        statusDiv.style.background = '#fee2e2';
+        statusDiv.style.color = '#991b1b';
+        statusDiv.innerHTML = '● System Offline (Basic Mode Active)';
+        // Fallback will be handled by script.js detection
+      }
+      document.body.appendChild(statusDiv);
+    });
+  </script>
+  <script src="script.js"></script>
+</body>
+
+</html>
